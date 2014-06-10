@@ -5,6 +5,11 @@
 #### observable
 #### observableArray
 #### computed
+#### Scopes
+* $data
+* foreach
+* with
+* $parent, $parents[]
 
 ###The data-bind attribute
 * Is it legal?
