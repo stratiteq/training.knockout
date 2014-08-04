@@ -34,4 +34,26 @@ Will be interpreted as this:
 }
 ```
 
+This means that we can write any valid javascript inside this attribute and use our observables/computed as they will be wrapped and executed by knockout. Things like these are perfectly valid:
+```html
+//inline function
+<h2 data-bind="click: function(){ alert('h2 clicked';}"></h2>
+
+//bind on global function
+<h2 data-bind="click: alert.bind(undefined,'h2 clicked')"></h2>
+
+//long unreadable logic
+<h2 data-bind="css:{selected: function(){
+  var selected = false;
+  for(var i = 0 ; i < collection.count; i++){
+    if(collection[i].preventsSelection()){
+      selected = true;
+      //More logic
+    }
+  }
+  return selected;
+}}"></h2>
+```
+But it doesn't mean that you should put complex logic into the view. The more convoluted example should be refactored to the ViewModel or maybe even to the Model.
+
 ###Structure of a small single page application
