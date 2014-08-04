@@ -19,7 +19,7 @@ It might not be obvious at first but the syntax you use inside the data-bind att
 
 This:
 ```html
-<h2 data-bind="text:name,attr:{title:desription},css:{selected: selectedId() === id()}"></h2>
+<h2 data-bind="text:name,attr:{title:desription},css:{selected: selectedId === id}"></h2>
 ```
 Will be interpreted as this:
 ```javascript
