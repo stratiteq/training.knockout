@@ -5,13 +5,9 @@
 #### observable
 #### observableArray
 #### computed
-#### Scopes
-* $data
-* foreach
-* with
-* $parent, $parents[]
 
 ###The data-bind attribute
+####What does it do?
 ####Is it legal?
 Yes, the data-* attributes are valid in HTML5 and is the recommended way to add custom attributes to your application.
 ####The syntax
@@ -19,7 +15,9 @@ It might not be obvious at first but the syntax you use inside the data-bind att
 
 This:
 ```html
-<h2 data-bind="text:name,attr:{title:desription},css:{selected: selectedId === id}"></h2>
+<h2 data-bind="text:name,
+               attr:{title:desription},
+               css:{selected: selectedId === id}"></h2>
 ```
 Will be interpreted as this:
 ```javascript
@@ -29,7 +27,7 @@ Will be interpreted as this:
     title: description
   },
   css: {
-    selected: selectedId() === id()
+    selected: selectedId === id
   }
 }
 ```
@@ -55,5 +53,37 @@ This means that we can write any valid javascript inside this attribute and use 
 }}"></h2>
 ```
 But it doesn't mean that you should put complex logic into the view. The more convoluted example should be refactored to the ViewModel or maybe even to the Model.
+
+### Binding context
+A binding context in Knockout is an object which you can use in your bindings. There is always one implicit context which Knockout will try to execute your bindings on. But you can also set explicit ones that allow you to call functionality from other parts of your application, or scope a view to a specific ViewModel.
+#### $root
+Root is the the object that you used in your `ko.applyBindings()` call, this is the implicit binding context in the toplevel (outside any other context) of your view.
+```javascript
+ko.applyBindings({
+  myName: ko.observable('my name')
+});
+```
+```html
+//These are the same since $root is implicit here.
+<h2 data-bind="text: myName"></h2>
+<h2 data-bind="text: $root.myName"></h2>
+```
+#### foreach
+#### $data
+Data refers to the current context which might seem weird, but sometimes you need to reference the context object itself instead of a property on it. $data and $root refers to the same object on the top level (outside any other context).
+```javascript
+ko.applyBindings({
+  texts: ko.observableArray(['item 1','item 2'])
+});
+```
+```html
+//We have to use $data since we want to print the 
+//text itself.
+<ul data-bind="foreach: texts">
+  <li data-bind="text: $data"></li>
+</ul>
+```
+#### with
+#### $parent, $parents[]
 
 ###Structure of a small single page application
