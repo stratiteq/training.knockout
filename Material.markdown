@@ -5,9 +5,34 @@
 #### observable
 #### observableArray
 #### computed
+#### applyBindings
 
 ###The data-bind attribute
 ####What does it do?
+####Bindings
+#####Foreach
+The foreach binding allows you to iterate over collections of items. Data bindings inside of the foreach will refer to the current iterated object.
+```javascript
+ko.applyBindings({
+  customers: ko.observable([{
+    name: 'customer 1'
+    company: 'somecorp'
+  },{
+    name: 'customer 2',
+    company: 'someothercorp'
+  }])
+});
+```
+```html
+<section data-bind="foreach: customers">
+  <article>
+    <h2 data-bind="text:name"></h2>
+    <p data-bind="text:company"></p>
+  </article>
+</section>
+```
+#####with
+#####template
 ####Is it legal?
 Yes, the data-* attributes are valid in HTML5 and is the recommended way to add custom attributes to your application.
 ####The syntax
@@ -68,7 +93,6 @@ ko.applyBindings({
 <h2 data-bind="text: myName"></h2>
 <h2 data-bind="text: $root.myName"></h2>
 ```
-#### foreach
 #### $data
 Data refers to the current context which might seem weird, but sometimes you need to reference the context object itself instead of a property on it. $data and $root refers to the same object on the top level (outside any other context).
 ```javascript
@@ -89,7 +113,6 @@ ko.applyBindings({
 //Set the referenced object as "this" when calling this function
 <button data-bind="click: doStuff.bind($data)"></button>
 ```
-#### with
 #### $parent, $parents[]
 
 ###Structure of a small single page application
