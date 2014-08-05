@@ -73,7 +73,10 @@ ko.applyBindings({
 Data refers to the current context which might seem weird, but sometimes you need to reference the context object itself instead of a property on it. $data and $root refers to the same object on the top level (outside any other context).
 ```javascript
 ko.applyBindings({
-  texts: ko.observableArray(['item 1','item 2'])
+  texts: ko.observableArray(['item 1','item 2']),
+  doStuff: function(){
+    //Do stuff with "this" here
+  }
 });
 ```
 ```html
@@ -82,6 +85,9 @@ ko.applyBindings({
 <ul data-bind="foreach: texts">
   <li data-bind="text: $data"></li>
 </ul>
+
+//Set the referenced object as "this" when calling this function
+<button data-bind="click: doStuff.bind($data)"></button>
 ```
 #### with
 #### $parent, $parents[]
