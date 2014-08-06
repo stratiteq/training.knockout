@@ -82,7 +82,7 @@ But it doesn't mean that you should put complex logic into the view. The more co
 ### Binding context
 A binding context in Knockout is an object which you can use in your bindings. There is always one implicit context which Knockout will try to execute your bindings on. But you can also set explicit ones that allow you to call functionality from other parts of your application, or scope a view to a specific ViewModel.
 #### $root
-Root is the the object that you used in your `ko.applyBindings()` call, this is the implicit binding context in the toplevel (outside any other context) of your view.
+$root is the the object that you used in your `ko.applyBindings()` call, this is the implicit binding context in the toplevel (outside any other context) of your view.
 ```javascript
 ko.applyBindings({
   myName: ko.observable('my name')
@@ -94,7 +94,7 @@ ko.applyBindings({
 <h2 data-bind="text: $root.myName"></h2>
 ```
 #### $data
-Data refers to the current context which might seem weird, but sometimes you need to reference the context object itself instead of a property on it. $data and $root refers to the same object on the top level (outside any other context).
+$data refers to the current context which might seem weird, but sometimes you need to reference the context object itself instead of a property on it. $data and $root refers to the same object on the top level (outside any other context).
 ```javascript
 ko.applyBindings({
   texts: ko.observableArray(['item 1','item 2']),
@@ -114,5 +114,47 @@ ko.applyBindings({
 <button data-bind="click: doStuff.bind($data)"></button>
 ```
 #### $parent, $parents[]
+> $parents[0] = $parent
+
+$parent and $parents[] are used for referring to scopes "outside/above" your current scope, think of it as navigating up levels in a tree structure. $parent is often used for referring to the scope outside of your foreach. Using lots of $parents[] might indicate a problem with your application structure.
+```javascript
+{
+  name: 'list',
+  subitems: ['1','2','3']
+}
+```
+```html
+<h2 data-bind="text:name"></h2>
+<ul data-bind="foreach: subitems">
+  <li data-bind="text: $parent.name + ' ' + name"></li>
+</ul>
+```
+You probably shouldn't do this
+```javascript
+{
+  root: {
+    name: 'root',
+    level1: {
+      name: 'level1',
+      level2: {
+        name: 'level2'
+      }
+    }
+  }
+}
+```
+```html
+<section>
+  <h2 data-bind="text:name">//root</h2>
+  <section data-bind="with: level1">
+    <h2 data-bind="text: $parent.name + '>' + name">//root>level1</h2>
+    <section data-bind="with: level2">
+      <h2 data-bind="text: parents[1].name + '>' + $parent.name + '>' + name">
+        //root>level1>level2
+      </h2>
+    </section>
+  </section>
+</section>
+```
 
 ###Structure of a small single page application
