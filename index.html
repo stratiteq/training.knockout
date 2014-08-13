@@ -64,34 +64,21 @@
                     <div class="panel-heading">Following</div>
 
                     <!-- List group -->
-                    <ul class="list-group" data-bind="template:{name: 'personlistitem',foreach:following}"></ul>
+                    <ul class="list-group"></ul>
                 </div>
                 <div class="panel panel-default">
                     <!-- Default panel contents -->
                     <div class="panel-heading">People to follow</div>
                     <div class="panel-body">
-                        <input type="search" class="form-control" placeholder="Search..." data-bind="value:searchFollow,valueUpdate:'afterkeydown'" />
+                        <input type="search" class="form-control" placeholder="Search..."/>
                     </div>
 
                     <!-- List group -->
-                    <ul class="list-group" data-bind="template:{name: 'personlistitem',foreach:peopleToFollow}"></ul>
+                    <ul class="list-group"></ul>
                 </div>
             </div>
             <div class="col-sm-8">
                 <h2>Timeline</h2>
-                <ul data-bind="foreach: timeline">
-                    <li>
-                        <div class="media">
-                            <div class="pull-left">
-                                <img class="media-object" style="width:50px" data-bind="attr:{src:owner.avatar_url}">
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading" data-bind="text:name"></h4>
-                                <p data-bind="text:description"></p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
             </div>
         </div>
 
@@ -101,20 +88,6 @@
             <p>&copy; Company 2014</p>
         </footer>
     </div> <!-- /container -->
-
-    <script type="text/html" id="personlistitem">
-        <li class="list-group-item">
-            <span class="badge" data-bind="click: $root.toggleFollow,text: $root.following.indexOf($data) > -1 ? 'unfollow' : 'follow'"></span>
-            <div class="media">
-                <div class="pull-left">
-                    <img class="media-object" style="width:50px" data-bind="attr:{src:avatar_url}">
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading" data-bind="text:login"></h4>
-                </div>
-            </div>
-        </li>
-    </script>
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script>
     <script src="scripts/helpers.js"></script>
