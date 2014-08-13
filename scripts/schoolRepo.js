@@ -1,15 +1,15 @@
 ﻿var schoolRepo = (function () {
     return {
-        getTeachers: function () {
+        getTeachers: function (callback) {
             helpers.getJson('https://api.github.com/users', function (response) {
                 var teachers = JSON.parse(response);
-                return teachers.slice(0,10);
+                callback(teachers.slice(0,10));
             });
         },
-        getStudents: function () {
+        getStudents: function (callback) {
             helpers.getJson('https://api.github.com/users', function (response) {
                 var teachers = JSON.parse(response);
-                return teachers.slice(10);
+                callback(teachers.slice(10));
             });
         }
     };
