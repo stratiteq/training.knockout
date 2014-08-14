@@ -1,9 +1,35 @@
 ###What is databinding and why should we use it?
-* Code example DOM manipulation vs databinding
-
+###MVVM
+####Model
+Corresponds to a db entity
+####ViewModel
+Object responsible for part of a view, usually has observable proeprties, it doesn't matter how it's created, as long as it's a object. Should be nested in larger applications
+```javascript
+var vm = {
+  prop: ko.observable(false),
+  propArray: ko.observableArray()
+}
+```
 ###Knockout functionality
 #### observable
+variable/property that contains a single value, be it an object, simple type or function, and informs any listener when it changes. Only informs when it changes itself, not when its property changes, unless they're observable to.
+```javascript
+var v = ko.observable(false);
+```
 #### observableArray
+An observable that contains an array and informs when it's modified (pushed to, items removed etc), exposes most normal javascript array functionality. Notable exception is having to get the underlaying array to get the length property and index functionality.
+```javascript
+var v = ko.observableArray(myArrayOrNothing);
+v.push({});
+```
+####subscribe
+Used when you need code to react when a observable changes
+```javascript
+var v = ko.observable(false);
+v.subscribe(function(newVal){
+  alert('value of v is ' + newVal);
+});
+```
 #### computed
 #### applyBindings
 
@@ -14,7 +40,7 @@
 The foreach binding allows you to iterate over collections of items. Data bindings inside of the foreach will refer to the current iterated object.
 ```javascript
 ko.applyBindings({
-  customers: ko.observable([{
+  customers: ko.observableArray([{
     name: 'customer 1'
     company: 'somecorp'
   },{
