@@ -40,6 +40,7 @@ var tax = ko.observable();
 var total = ko.computed(function(){
   return cost() * total();
 });
+```
 #### applyBindings
 This is what tells your view to start listening to your VM. This should only be applied once, something is very wrong in your bindings if you have to apply it again. It can however be used to apply different "main" VMs to different html elements if you want only parts of your page to use knockout.
 ```javascript
