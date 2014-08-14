@@ -49,8 +49,19 @@ ko.applyBindings(vm,[htmlNode]);
 
 ###The data-bind attribute
 ####What does it do?
+The data-bind attribute is what tells the view to how it should react/render based on the viewmodel.
+```html
+<p data-bind="text: myTextObservable"></p>
+```
 ####Bindings
-#####Foreach
+#####text
+Used to write a value inside of the element
+#####value
+Used on form elements to decide what the value of it should be, very useful for text inputs since this is a 2 way binding, meaning that what you put into the field will update the model and vice versa.
+```html
+<input type="text" data-bind="value: myObservable"/>
+```
+#####foreach
 The foreach binding allows you to iterate over collections of items. Data bindings inside of the foreach will refer to the current iterated object.
 ```javascript
 ko.applyBindings({
