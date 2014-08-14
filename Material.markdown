@@ -10,6 +10,8 @@ var vm = {
   propArray: ko.observableArray()
 }
 ```
+####View
+Connects the Viewmodel to the view through loose binding. Knockout uses the data-bind html attribute to achieve this.
 ###Knockout functionality
 #### observable
 variable/property that contains a single value, be it an object, simple type or function, and informs any listener when it changes. Only informs when it changes itself, not when its property changes, unless they're observable to.
@@ -23,7 +25,7 @@ var v = ko.observableArray(myArrayOrNothing);
 v.push({});
 ```
 ####subscribe
-Used when you need code to react when a observable changes
+Explicit subscription used when you need code to react when a observable changes.
 ```javascript
 var v = ko.observable(false);
 v.subscribe(function(newVal){
@@ -31,7 +33,18 @@ v.subscribe(function(newVal){
 });
 ```
 #### computed
+The computed works like a observable except it doesn't wrap a single value, instead it contains a function used to compute the value that it should return. A computed will reevalute and notify any subscribers whan any observable/computed that is invoked inside of its function reevaluates.
+```javascript
+var cost = ko.observable();
+var tax = ko.observable();
+var total = ko.computed(function(){
+  return cost() * total();
+});
 #### applyBindings
+This is what tells your view to start listening to your VM. This should only be applied once, something is very wrong in your bindings if you have to apply it again. It can however be used to apply different "main" VMs to different html elements if you want only parts of your page to use knockout.
+```javascript
+ko.applyBindings(vm,[htmlNode]);
+```
 
 ###The data-bind attribute
 ####What does it do?
